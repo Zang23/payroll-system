@@ -1,12 +1,12 @@
 package edu.folhaPgto;
 
-import edu.folhaPgto.boundary.LoginBoundary;
+import edu.folhaPgto.boundary.Main;
 import javafx.application.Application;
 
 public class App {
     
    public static void main(String[] args) {
-        Application.launch(LoginBoundary.class, args);
+        Application.launch(Main.class, args);
     }
 }
 

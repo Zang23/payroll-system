@@ -1,10 +1,10 @@
 package edu.folhaPgto.boundary;
 
 import edu.folhaPgto.control.LoginControl;
-import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,7 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class LoginBoundary extends Application {
+public class LoginBoundary{
 
         private TextField txtEmail = new TextField();
         private PasswordField txtSenha = new PasswordField();
@@ -25,9 +25,9 @@ public class LoginBoundary extends Application {
         private LoginControl loginCtrl = new LoginControl();
 
 
-
-        @Override
-        public void start(Stage stage) {
+        private StackPane root = new StackPane();
+        
+        public LoginBoundary (Stage stage) {
 
 
                 Label lblTitulo = new Label("Login");
@@ -74,14 +74,16 @@ public class LoginBoundary extends Application {
                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10,0,0,4);
                         """);
 
-                // Fundo
-                StackPane root = new StackPane(card);
+               
+                root.getChildren().add(card);
+
+
 
                 root.setStyle("""
                         -fx-background-color: #f0f0f0;
                         """);
 
-                Scene scene = new Scene(root, 700, 500);
+
 
                 btnEntrar.setOnAction(e -> {
 
@@ -98,7 +100,7 @@ public class LoginBoundary extends Application {
 
                 btnCadastrar.setOnAction(e -> {
 
-                        CadastroBoundary telaCadastro = new CadastroBoundary();
+                        CadastroBoundary telaCadastro = new CadastroBoundary(stage);
 
                         Scene cadastroScene = new Scene(telaCadastro.getRoot(), 900, 600);
 
@@ -108,11 +110,13 @@ public class LoginBoundary extends Application {
 
                 Bindings.bindBidirectional(txtEmail.textProperty(), loginCtrl.emailProperty());
                 Bindings.bindBidirectional(txtSenha.textProperty(), loginCtrl.senhaProperty());
-
-
-                stage.setTitle("Sistema Folha de Pagamento");
-                stage.setScene(scene);
-                stage.show();
+                
         }
+
+        public Parent getRoot(){
+                return root;
+        }
+
+        
 
 }
