@@ -2,6 +2,7 @@ package edu.folhaPgto.entity;
 
 public class Funcionario {
     
+    private Long id;
     private String nome;
     private String senha;
     private String email;
@@ -13,12 +14,17 @@ public class Funcionario {
         super();
     }
 
-    public Funcionario(String nome, String email, String senha, String telefone, String tipo){
+    public Funcionario(Long id, String nome, String email, String senha, String telefone, String tipo){
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
         this.tipo = tipo;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNome() {

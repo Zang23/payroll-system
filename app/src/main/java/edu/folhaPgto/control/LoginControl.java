@@ -40,7 +40,7 @@ public class LoginControl {
     private StringProperty email = new SimpleStringProperty("");
     private StringProperty senha = new SimpleStringProperty("");
 
-    public boolean logar(){
+    public LoginRequestDTO logar(){
 
         
         LoginRequestDTO loginDto = new LoginRequestDTO(
@@ -49,11 +49,13 @@ public class LoginControl {
         );
 
         if(validaCamposLogin(loginDto)){
+            
             return funcionarioDAO.validarLogin(loginDto);
+
             //fazer meio de mostrar que o usuario errou o email ou senha
         }else{
             System.out.println("Preencha os campos de Email e senha corretamente.");
-            return false;
+            return null;
         }
 
 

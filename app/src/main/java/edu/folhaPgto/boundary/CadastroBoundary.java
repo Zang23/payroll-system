@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -20,7 +21,8 @@ public class CadastroBoundary {
     private TextField txtEmail = new TextField();
     private TextField txtTelefone = new TextField();
     private PasswordField txtSenha = new PasswordField();
-    private TextField txtTipo = new TextField();
+    private ComboBox<String> cbTipo = new ComboBox<>();
+
 
     private Button btnCadastrar = new Button("Cadastrar");
 
@@ -46,8 +48,11 @@ public class CadastroBoundary {
         txtTelefone.setPromptText("Telefone");
         txtTelefone.setPrefHeight(40);
 
-        txtTipo.setPromptText("Tipo");
-        txtTipo.setPrefHeight(40);
+        cbTipo.getItems().addAll("funcionario", "chefe");
+        cbTipo.setPromptText("Selecione o Tipo");
+        cbTipo.setPrefHeight(45);
+        cbTipo.setMaxWidth(Double.MAX_VALUE);
+
 
         txtEmail.setPromptText("Email");
         txtEmail.setPrefHeight(40); 
@@ -87,7 +92,7 @@ public class CadastroBoundary {
             lblTitulo,
             txtNome,
             txtTelefone,
-            txtTipo,
+            cbTipo,
             txtEmail,
             txtSenha,
             btnCadastrar
@@ -110,7 +115,7 @@ public class CadastroBoundary {
 
         Bindings.bindBidirectional(txtNome.textProperty(), cadastroCtrl.nomeProperty());
         Bindings.bindBidirectional(txtTelefone.textProperty(), cadastroCtrl.telefoneProperty());
-        Bindings.bindBidirectional(txtTipo.textProperty(), cadastroCtrl.tipoProperty());
+        Bindings.bindBidirectional(cbTipo.valueProperty(), cadastroCtrl.tipoProperty());
         Bindings.bindBidirectional(txtEmail.textProperty(), cadastroCtrl.emailProperty());
         Bindings.bindBidirectional(txtSenha.textProperty(), cadastroCtrl.senhaProperty());
         

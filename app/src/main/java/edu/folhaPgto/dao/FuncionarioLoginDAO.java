@@ -15,9 +15,9 @@ public class FuncionarioLoginDAO {
         this.con = con;
     }
 
-    public boolean validarLogin(LoginRequestDTO dto){
+    public LoginRequestDTO validarLogin(LoginRequestDTO dto){
 
-        String sql = "SELECT email, senha FROM funcionario WHERE email = ? AND senha = ?";
+        String sql = "SELECT email, senha, tipo FROM funcionario WHERE email = ? AND senha = ?";
 
         try{   
 
@@ -27,19 +27,24 @@ public class FuncionarioLoginDAO {
             stm.setString(2, dto.getSenha());
 
             ResultSet rs = stm.executeQuery();
+                
 
-            boolean existe = rs.next();                
+            if(rs.next()){
+
+                dto.setTipo(rs.getString("tipo"));
+
+            }
 
             rs.close();
             stm.close();
 
-            return existe;
+            return dto;
             
         }catch(Exception e){
             System.out.println("Erro ao carregar funcionario. " + e.getMessage());
         }
 
-        return false;
+        return null;
 
     }
 

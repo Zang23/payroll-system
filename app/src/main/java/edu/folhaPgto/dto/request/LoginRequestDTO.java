@@ -4,6 +4,7 @@ public class LoginRequestDTO {
     
     private String email;
     private String senha;
+    private String tipo;
 
     public LoginRequestDTO(String email, String senha){
         this.email = email;
@@ -17,6 +18,15 @@ public class LoginRequestDTO {
     public String getSenha() {
         return senha;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
 
 
 

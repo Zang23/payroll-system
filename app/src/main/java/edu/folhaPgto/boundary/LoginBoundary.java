@@ -1,6 +1,7 @@
 package edu.folhaPgto.boundary;
 
 import edu.folhaPgto.control.LoginControl;
+import edu.folhaPgto.dto.request.LoginRequestDTO;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -87,15 +88,32 @@ public class LoginBoundary{
 
                 btnEntrar.setOnAction(e -> {
 
-                        boolean loginValido = loginCtrl.logar();
 
-                        if(loginValido){
-                               DashboardBoundary telaDash = new DashboardBoundary();
+                        LoginRequestDTO dto = loginCtrl.logar();
 
-                               Scene dashboardScene = new Scene(telaDash.getRoot(),900,600);
-
-                               stage.setScene(dashboardScene);
+                        if(dto == null || dto.getTipo() == null){
+                                System.out.println("Email ou senha incorretos");
+                                return;
                         }
+
+                        if(dto.getTipo().equalsIgnoreCase("chefe")){
+                                
+                                DashboardChefeBoundary telaChefe = new DashboardChefeBoundary();
+
+                                Scene dashChefe = new Scene(telaChefe.getRoot(), 900, 600);
+
+                                stage.setScene(dashChefe);
+
+                        }else if(dto.getTipo().equalsIgnoreCase("funcionario")){
+
+                                DashboardFuncionarioBoundary telaFuncionario = new DashboardFuncionarioBoundary();
+
+                                Scene dashFuncionario = new Scene(telaFuncionario.getRoot(), 900, 600);
+
+                                stage.setScene(dashFuncionario);
+
+                        }
+
                 });
 
                 btnCadastrar.setOnAction(e -> {
