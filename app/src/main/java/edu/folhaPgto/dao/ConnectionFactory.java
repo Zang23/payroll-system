@@ -1,4 +1,4 @@
-package edu.folhaPgto.database;
+package edu.folhaPgto.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

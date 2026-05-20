@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import edu.folhaPgto.dao.ConnectionFactory;
 import edu.folhaPgto.dao.DashChefeDAO;
-import edu.folhaPgto.database.ConnectionFactory;
 import edu.folhaPgto.dto.request.DashFuncionarioRequestDTO;
 
 public class DashChefeControl {

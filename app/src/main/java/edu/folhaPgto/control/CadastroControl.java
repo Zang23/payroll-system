@@ -3,8 +3,8 @@ package edu.folhaPgto.control;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import edu.folhaPgto.dao.ConnectionFactory;
 import edu.folhaPgto.dao.FuncionarioCadastroDAO;
-import edu.folhaPgto.database.ConnectionFactory;
 import edu.folhaPgto.dto.request.CadastroRequestDTO;
 import edu.folhaPgto.entity.Funcionario;
 import javafx.beans.property.SimpleStringProperty;

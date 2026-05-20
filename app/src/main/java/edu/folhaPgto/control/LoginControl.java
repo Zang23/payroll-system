@@ -4,8 +4,8 @@ package edu.folhaPgto.control;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import edu.folhaPgto.dao.ConnectionFactory;
 import edu.folhaPgto.dao.FuncionarioLoginDAO;
-import edu.folhaPgto.database.ConnectionFactory;
 import edu.folhaPgto.dto.request.LoginRequestDTO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
