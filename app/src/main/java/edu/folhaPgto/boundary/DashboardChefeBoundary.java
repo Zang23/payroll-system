@@ -2,13 +2,13 @@ package edu.folhaPgto.boundary;
 
 import edu.folhaPgto.control.DashChefeControl;
 import edu.folhaPgto.dto.request.DashFuncionarioRequestDTO;
-import edu.folhaPgto.entity.Funcionario;
 import javafx.beans.property.ReadOnlyLongWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -16,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class DashboardChefeBoundary {
 
@@ -26,7 +27,7 @@ public class DashboardChefeBoundary {
 
     private ObservableList<DashFuncionarioRequestDTO> funcionarios = FXCollections.observableArrayList(chefeCtrl.carregarTabela());
 
-    public DashboardChefeBoundary() {
+    public DashboardChefeBoundary(Stage stage) {
 
         root.setStyle("-fx-background-color: #f5f5f5;");
         root.setPadding(new Insets(30));
@@ -46,21 +47,36 @@ public class DashboardChefeBoundary {
         tabela.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
         TableColumn<DashFuncionarioRequestDTO, Long> colId = new TableColumn<>("ID");
+        colId.setStyle(
+            "-fx-alignment: CENTER;" 
+        );
+        
         colId.setCellValueFactory(itemData -> new ReadOnlyLongWrapper(itemData
                 .getValue()
                 .getId()).asObject());
 
         TableColumn<DashFuncionarioRequestDTO, String> colNome = new TableColumn<>("Nome");
+        colNome.setStyle(
+            "-fx-alignment: CENTER;" 
+        );
+
         colNome.setCellValueFactory(itemData -> new ReadOnlyStringWrapper(itemData
                 .getValue()
                 .getNome()));
 
         TableColumn<DashFuncionarioRequestDTO, String> colEmail = new TableColumn<>("Email");
+        colEmail.setStyle(
+            "-fx-alignment: CENTER;" 
+        );
+
         colEmail.setCellValueFactory(itemData -> new ReadOnlyStringWrapper(itemData
                 .getValue()
                 .getEmail()));
 
         TableColumn<DashFuncionarioRequestDTO, String> colTelefone = new TableColumn<>("Telefone");
+        colTelefone.setStyle(
+            "-fx-alignment: CENTER;" 
+        );
 
         colTelefone.setCellValueFactory(itemData -> new ReadOnlyStringWrapper(itemData
                 .getValue()
@@ -74,13 +90,30 @@ public class DashboardChefeBoundary {
 
             {
 
-                btnEditar.setStyle(
-                        "-fx-background-color: #1976d2;" +
-                                "-fx-text-fill: white;" +
-                                "-fx-cursor: hand;" +
-                                "-fx-font-weight: bold;");
 
-                // funcao para editar
+
+                btnEditar.setStyle(
+                    "-fx-background-color: #1976d2;" +
+                    "-fx-text-fill: white;" +
+                    "-fx-cursor: hand;" +
+                    "-fx-font-weight: bold;"
+                );
+
+                btnEditar.setOnAction(e -> {
+
+                    DashFuncionarioRequestDTO dto = getTableView()
+                        .getItems()
+                        .get(getIndex());
+
+                    EditarFuncionairoBoundary telaEditar = new EditarFuncionairoBoundary(stage, dto);
+
+                    Scene editarScene = new Scene(telaEditar.getRoot(), 900, 600);
+
+                    stage.setScene(editarScene);
+
+                });
+
+                
 
             }
 
@@ -93,13 +126,13 @@ public class DashboardChefeBoundary {
                     setGraphic(null);
                 } else {
                     setGraphic(btnEditar);
+                    setStyle("-fx-alignment: CENTER;");
                 }
                 
             }
 
         });
 
-        // ================= COLUNA EXCLUIR =================
         TableColumn<DashFuncionarioRequestDTO, Void> colExcluir = new TableColumn<>("Excluir");
 
         colExcluir.setCellFactory(param -> new TableCell<>() {
@@ -109,6 +142,7 @@ public class DashboardChefeBoundary {
             {
 
                 btnExcluir.setStyle(
+                    "-fx-alignment: CENTER;" +
                     "-fx-background-color: #d32f2f;" +
                     "-fx-text-fill: white;" +
                     "-fx-cursor: hand;" +
@@ -139,13 +173,13 @@ public class DashboardChefeBoundary {
                     setGraphic(null);
                 } else {
                     setGraphic(btnExcluir);
+                    setStyle("-fx-alignment: CENTER;");
                 }
 
             }
 
         });
 
-        // ================= COLUNA VER =================
         TableColumn<DashFuncionarioRequestDTO, Void> colVer = new TableColumn<>("Ver");
 
         colVer.setCellFactory(param -> new TableCell<>() {
@@ -173,6 +207,7 @@ public class DashboardChefeBoundary {
                 if (empty) {
                     setGraphic(null);
                 } else {
+                    setStyle("-fx-alignment: CENTER;");
                     setGraphic(btnVer);
                 }
                 
@@ -187,8 +222,7 @@ public class DashboardChefeBoundary {
             colEmail,
             colTelefone,
             colEditar,
-            colExcluir,
-            colVer
+            colExcluir
         );
 
         VBox.setVgrow(tabela, Priority.ALWAYS);

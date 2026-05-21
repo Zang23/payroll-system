@@ -98,7 +98,7 @@ public class LoginBoundary{
 
                         if(dto.getTipo().equalsIgnoreCase("chefe")){
                                 
-                                DashboardChefeBoundary telaChefe = new DashboardChefeBoundary();
+                                DashboardChefeBoundary telaChefe = new DashboardChefeBoundary(stage);
 
                                 Scene dashChefe = new Scene(telaChefe.getRoot(), 900, 600);
 

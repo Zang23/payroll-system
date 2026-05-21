@@ -41,18 +41,21 @@ public class DashChefeControl {
         return chefeDAO.carregar();
     }
 
-    public void editarFuncionario(DashFuncionarioRequestDTO dto){
-
-        System.out.println("Editar funcionario: " + dto.getId());
-
-    }
-
     public void deletarFuncionario(DashFuncionarioRequestDTO dto){
 
-        System.out.println("Deletado funcionario: " + dto.getId());
+        System.out.println("Funcionario: " + dto.getId() + ". Deletado com sucesso!");
 
         chefeDAO.deletarFuncionario(dto);
         return;
+    }
+
+    public void atualizarFuncionario(DashFuncionarioRequestDTO dto) {
+    
+
+        System.out.println("Funcionario: " + dto.getId() + ". Editado com sucesso!");
+        chefeDAO.atualizarFuncionario(dto);
+        return;
+
     }
 
     

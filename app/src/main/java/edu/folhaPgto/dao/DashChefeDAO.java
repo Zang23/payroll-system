@@ -79,4 +79,29 @@ public class DashChefeDAO {
 
     }
 
+    public void atualizarFuncionario(DashFuncionarioRequestDTO dto) {
+     
+        String sql = "UPDATE funcionario SET nome = ?, email = ?, telefone = ? WHERE id = ?";
+
+        try{
+
+            PreparedStatement stm = con.prepareStatement(sql);
+
+            stm.setString(1, dto.getNome());
+            stm.setString(2, dto.getEmail());
+            stm.setString(3, dto.getTelefone());
+            stm.setLong(4, dto.getId());
+
+            stm.executeUpdate();
+            carregar();
+
+            stm.close();
+
+
+        }catch(Exception e){
+            System.err.println("Erro ao editar funcionario: " + e.getMessage());
+        }
+
+    }
+
 }
