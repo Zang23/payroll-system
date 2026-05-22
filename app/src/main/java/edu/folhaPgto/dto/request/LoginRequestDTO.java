@@ -2,6 +2,7 @@ package edu.folhaPgto.dto.request;
 
 public class LoginRequestDTO {
     
+    private Long id;
     private String email;
     private String senha;
     private String tipo;
@@ -9,6 +10,14 @@ public class LoginRequestDTO {
     public LoginRequestDTO(String email, String senha){
         this.email = email;
         this.senha = senha;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {

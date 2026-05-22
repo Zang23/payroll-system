@@ -106,7 +106,7 @@ public class LoginBoundary{
 
                         }else if(dto.getTipo().equalsIgnoreCase("funcionario")){
 
-                                DashboardFuncionarioBoundary telaFuncionario = new DashboardFuncionarioBoundary();
+                                DashboardFuncionarioBoundary telaFuncionario = new DashboardFuncionarioBoundary(stage, dto.getId());
 
                                 Scene dashFuncionario = new Scene(telaFuncionario.getRoot(), 900, 600);
 

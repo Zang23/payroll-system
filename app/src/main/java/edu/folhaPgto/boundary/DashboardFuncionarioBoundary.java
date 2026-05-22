@@ -1,320 +1,262 @@
 package edu.folhaPgto.boundary;
 
+import edu.folhaPgto.control.DashFuncionarioControl;
+import edu.folhaPgto.dto.request.DashFuncionarioRequestDTO;
 import edu.folhaPgto.entity.FolhaPagamento;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
+import javafx.beans.property.ReadOnlyLongWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class DashboardFuncionarioBoundary {
 
-    private VBox root = new VBox();
+        private VBox root = new VBox();
 
-    // ================= DADOS TEMPORARIOS =================
-    private ObservableList<FolhaPagamento> folhas = FXCollections.observableArrayList(
+        private DashFuncionarioControl funcCtrl = new DashFuncionarioControl();
 
-            new FolhaPagamento(
-                    1L,
-                    "05/05/2026",
-                    3500.00
-            ),
+        private Button btnAdcionar = new Button("Adicionar Folha");
+        private Button btnVoltar = new Button("Voltar");
 
-            new FolhaPagamento(
-                    2L,
-                    "05/04/2026",
-                    3400.00
-            ),
 
-            new FolhaPagamento(
-                    3L,
-                    "05/03/2026",
-                    3300.00
-            )
+        public DashboardFuncionarioBoundary(Stage stage, Long dtoId) {
 
-    );
+                ObservableList<FolhaPagamento> folhas = FXCollections.observableArrayList(funcCtrl.carregarTabela(dtoId));
 
-    public DashboardFuncionarioBoundary() {
+                root.setStyle("-fx-background-color: #f5f5f5;");
 
-        root.setStyle("-fx-background-color: #f5f5f5;");
+                root.setPadding(new Insets(30));
 
-        root.setPadding(new Insets(30));
+                Label lblTitulo = new Label("Folhas de Pagamento");
 
-        // ================= TITULO =================
-        Label lblTitulo = new Label("Folhas de Pagamento");
+                lblTitulo.setStyle(
+                                "-fx-font-size: 26px;" +
+                                                "-fx-font-weight: bold;");
 
-        lblTitulo.setStyle(
-                "-fx-font-size: 26px;" +
-                "-fx-font-weight: bold;"
-        );
+                TableView<FolhaPagamento> tabela = new TableView<>();
 
-        // ================= TABELA =================
-        TableView<FolhaPagamento> tabela = new TableView<>();
+                tabela.setItems(folhas);
 
-        tabela.setItems(folhas);
+                tabela.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
-        tabela.setColumnResizePolicy(
-                TableView.CONSTRAINED_RESIZE_POLICY
-        );
+                TableColumn<FolhaPagamento, Long> colId = new TableColumn<>("ID");
 
-        // ================= COLUNA ID =================
-        TableColumn<FolhaPagamento, Long> colId =
-                new TableColumn<>("ID");
-
-        colId.setCellValueFactory(
-                new PropertyValueFactory<>("id")
-        );
-
-        // ================= COLUNA DATA =================
-        TableColumn<FolhaPagamento, String> colData =
-                new TableColumn<>("Data");
-
-        colData.setCellValueFactory(
-                new PropertyValueFactory<>("data")
-        );
-
-        // ================= COLUNA SALARIO =================
-        TableColumn<FolhaPagamento, Double> colSalario =
-                new TableColumn<>("Salário");
-
-        colSalario.setCellValueFactory(
-                new PropertyValueFactory<>("salario")
-        );
-
-        // ================= COLUNA EDITAR =================
-        TableColumn<FolhaPagamento, Void> colEditar =
-                new TableColumn<>("Editar");
-
-        colEditar.setCellFactory(param -> new TableCell<>() {
-
-            private final Button btnEditar =
-                    new Button("Editar");
-
-            {
-
-                btnEditar.setStyle(
-                        "-fx-background-color: #1976d2;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-cursor: hand;" +
-                        "-fx-font-weight: bold;"
+                colId.setCellValueFactory(
+                        new PropertyValueFactory<>("id")
                 );
 
-                btnEditar.setOnAction(event -> {
+                TableColumn<FolhaPagamento, String> colData = new TableColumn<>("Data Pagamento");
 
-                    FolhaPagamento folha =
-                            getTableView()
-                                    .getItems()
-                                    .get(getIndex());
+                colData.setCellValueFactory(
+                        new PropertyValueFactory<>("dataPagamento")
+                );
 
-                    editarFolha(folha);
+                TableColumn<FolhaPagamento, Double> colValorTotal = new TableColumn<>("Valor Folha");
+
+                colValorTotal.setCellValueFactory(
+                        new PropertyValueFactory<>("valorTotal")
+                );
+
+                TableColumn<FolhaPagamento, Void> colEditar = new TableColumn<>("Editar");
+
+                colEditar.setCellFactory(param -> new TableCell<>() {
+
+                        private final Button btnEditar = new Button("Editar");
+
+                        {
+
+                                btnEditar.setStyle(
+                                        "-fx-background-color: #1976d2;" +
+                                        "-fx-text-fill: white;" +
+                                        "-fx-cursor: hand;" +
+                                        "-fx-font-weight: bold;"
+                                );
+
+                               // funcao editar
+
+                        }
+
+                        @Override
+                        protected void updateItem(
+                                        Void item,
+                                        boolean empty) {
+
+                                super.updateItem(item, empty);
+
+                                if (empty) {
+
+                                        setGraphic(null);
+
+                                } else {
+
+                                        setGraphic(btnEditar);
+
+                                }
+
+                        }
 
                 });
 
-            }
+                TableColumn<FolhaPagamento, Void> colVer = new TableColumn<>("Ver");
 
-            @Override
-            protected void updateItem(
-                    Void item,
-                    boolean empty
-            ) {
+                colVer.setCellFactory(param -> new TableCell<>() {
 
-                super.updateItem(item, empty);
+                        private final Button btnVer = new Button("Ver");
 
-                if (empty) {
+                        {
 
-                    setGraphic(null);
+                                btnVer.setStyle(
+                                                "-fx-background-color: #1976d2;" +
+                                                                "-fx-text-fill: white;" +
+                                                                "-fx-cursor: hand;" +
+                                                                "-fx-font-weight: bold;");
 
-                } else {
+                              //funcao ver
 
-                    setGraphic(btnEditar);
+                        }
 
-                }
+                        @Override
+                        protected void updateItem(
+                                        Void item,
+                                        boolean empty) {
 
-            }
+                                super.updateItem(item, empty);
 
-        });
+                                if (empty) {
 
-        // ================= COLUNA VER =================
-        TableColumn<FolhaPagamento, Void> colVer =
-                new TableColumn<>("Ver");
+                                        setGraphic(null);
 
-        colVer.setCellFactory(param -> new TableCell<>() {
+                                } else {
 
-            private final Button btnVer =
-                    new Button("Ver");
+                                        setGraphic(btnVer);
 
-            {
+                                }
 
-                btnVer.setStyle(
-                        "-fx-background-color: #1976d2;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-cursor: hand;" +
-                        "-fx-font-weight: bold;"
-                );
-
-                btnVer.setOnAction(event -> {
-
-                    FolhaPagamento folha =
-                            getTableView()
-                                    .getItems()
-                                    .get(getIndex());
-
-                    verFolha(folha);
+                        }
 
                 });
 
-            }
+                TableColumn<FolhaPagamento, Void> colExcluir = new TableColumn<>("Excluir");
 
-            @Override
-            protected void updateItem(
-                    Void item,
-                    boolean empty
-            ) {
+                colExcluir.setCellFactory(param -> new TableCell<>() {
 
-                super.updateItem(item, empty);
+                        private final Button btnExcluir = new Button("Excluir");
 
-                if (empty) {
+                        {
 
-                    setGraphic(null);
+                                btnExcluir.setStyle(
+                                                "-fx-background-color: #d32f2f;" +
+                                                                "-fx-text-fill: white;" +
+                                                                "-fx-cursor: hand;" +
+                                                                "-fx-font-weight: bold;");
 
-                } else {
+                               //funcao excluir
 
-                    setGraphic(btnVer);
+                        }
 
-                }
+                        @Override
+                        protected void updateItem(
+                                        Void item,
+                                        boolean empty) {
 
-            }
+                                super.updateItem(item, empty);
 
-        });
+                                if (empty) {
 
-        // ================= COLUNA EXCLUIR =================
-        TableColumn<FolhaPagamento, Void> colExcluir =
-                new TableColumn<>("Excluir");
+                                        setGraphic(null);
 
-        colExcluir.setCellFactory(param -> new TableCell<>() {
+                                } else {
 
-            private final Button btnExcluir =
-                    new Button("Excluir");
+                                        setGraphic(btnExcluir);
 
-            {
+                                }
 
-                btnExcluir.setStyle(
-                        "-fx-background-color: #d32f2f;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-cursor: hand;" +
-                        "-fx-font-weight: bold;"
-                );
-
-                btnExcluir.setOnAction(event -> {
-
-                    FolhaPagamento folha =
-                            getTableView()
-                                    .getItems()
-                                    .get(getIndex());
-
-                    excluirFolha(folha);
+                        }
 
                 });
 
-            }
+                tabela.getColumns().addAll(
+                                colId,
+                                colData,
+                                colValorTotal,
+                                colEditar,
+                                colVer,
+                                colExcluir);
 
-            @Override
-            protected void updateItem(
-                    Void item,
-                    boolean empty
-            ) {
+                VBox.setVgrow(tabela, Priority.ALWAYS);
 
-                super.updateItem(item, empty);
+                btnAdcionar.setStyle(
+                        "-fx-background-color: #2e7d32;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-cursor: hand;"
+                );      
 
-                if (empty) {
+                btnAdcionar.setOnAction(e -> {
 
-                    setGraphic(null);
+                        //funcao para adicionar folha
 
-                } else {
+                });
 
-                    setGraphic(btnExcluir);
+                btnVoltar.setStyle(
+                        "-fx-background-color: #B31212;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-cursor: hand;"
+                );
 
-                }
+                btnVoltar.setOnAction(e ->{
+                        
+                        DashboardChefeBoundary telaChefe = new DashboardChefeBoundary(stage);
 
-            }
+                        Scene chefeScene = new Scene(telaChefe.getRoot(), 900, 600);
 
-        });
+                        stage.setScene(chefeScene);
 
-        // ================= ADICIONA COLUNAS =================
-        tabela.getColumns().addAll(
-                colId,
-                colData,
-                colSalario,
-                colEditar,
-                colVer,
-                colExcluir
-        );
+                });
 
-        VBox.setVgrow(tabela, Priority.ALWAYS);
+                HBox footer = new HBox(20);
 
-        // ================= CARD =================
-        VBox card = new VBox(20);
+                footer.setAlignment(Pos.CENTER_RIGHT);
 
-        card.getChildren().addAll(
-                lblTitulo,
-                tabela
-        );
+                footer.getChildren().addAll(btnAdcionar,btnVoltar);
 
-        card.setPadding(new Insets(25));
+                VBox card = new VBox(20);
 
-        card.setStyle(
-                "-fx-background-color: white;" +
-                "-fx-background-radius: 10;" +
-                "-fx-border-radius: 10;"
-        );
+                card.getChildren().addAll(lblTitulo,tabela, footer);
 
-        // ================= ROOT =================
-        root.getChildren().add(card);
+                card.setPadding(new Insets(25));
 
-    }
+                card.setStyle(
+                                "-fx-background-color: white;" +
+                                                "-fx-background-radius: 10;" +
+                                                "-fx-border-radius: 10;");
 
-    // ================= EDITAR =================
-    private void editarFolha(FolhaPagamento folha) {
+                // ================= ROOT =================
+                root.getChildren().add(card);
 
-        System.out.println(
-                "Editar folha: " + folha.getId()
-        );
+        }
 
-    }
+        
 
-    // ================= VER =================
-    private void verFolha(FolhaPagamento folha) {
+        public Parent getRoot() {
 
-        System.out.println(
-                "Visualizar folha: " + folha.getId()
-        );
+                return root;
 
-    }
-
-    // ================= EXCLUIR =================
-    private void excluirFolha(FolhaPagamento folha) {
-
-        System.out.println(
-                "Excluir folha: " + folha.getId()
-        );
-
-        folhas.remove(folha);
-
-    }
-
-    // ================= GET ROOT =================
-    public Parent getRoot() {
-
-        return root;
-
-    }
+        }
 
 }

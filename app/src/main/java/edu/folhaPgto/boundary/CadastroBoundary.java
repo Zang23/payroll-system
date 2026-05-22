@@ -25,6 +25,7 @@ public class CadastroBoundary {
 
 
     private Button btnCadastrar = new Button("Cadastrar");
+    private Button btnVoltar = new Button("Voltar");
 
     CadastroControl cadastroCtrl = new CadastroControl();
 
@@ -75,6 +76,17 @@ public class CadastroBoundary {
             -fx-background-radius: 8;
         """);
 
+        btnVoltar.setPrefWidth(Double.MAX_VALUE);
+        btnVoltar.setPrefHeight(45);
+
+        btnVoltar.setStyle("""
+            -fx-background-color: #B31212;
+            -fx-text-fill: white;
+            -fx-font-size: 14px;
+            -fx-font-weight: bold;
+            -fx-background-radius: 8;
+        """);
+
         // Formulário
         VBox formulario = new VBox(15);
 
@@ -95,7 +107,8 @@ public class CadastroBoundary {
             cbTipo,
             txtEmail,
             txtSenha,
-            btnCadastrar
+            btnCadastrar,
+            btnVoltar
         );
 
         btnCadastrar.setOnAction(e -> {
@@ -110,6 +123,17 @@ public class CadastroBoundary {
                 stage.setScene(loginScene);
 
             }
+
+        });
+
+
+        btnVoltar.setOnAction(e -> {
+
+            LoginBoundary telaLogin = new LoginBoundary(stage);
+
+            Scene loginScene = new Scene(telaLogin.getRoot(), 900, 600);
+
+            stage.setScene(loginScene);
 
         });
 

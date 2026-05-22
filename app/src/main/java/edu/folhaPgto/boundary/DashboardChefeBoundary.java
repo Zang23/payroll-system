@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -23,7 +25,9 @@ public class DashboardChefeBoundary {
     private VBox root = new VBox();
 
     private DashChefeControl chefeCtrl = new DashChefeControl();
-    
+
+    private Button btnAdcionar = new Button("Adicionar Funcionario");
+
 
     private ObservableList<DashFuncionarioRequestDTO> funcionarios = FXCollections.observableArrayList(chefeCtrl.carregarTabela());
 
@@ -195,7 +199,20 @@ public class DashboardChefeBoundary {
                     "-fx-font-weight: bold;"
                 );
 
-                // funcao para 'ver' funcionario
+                btnVer.setOnAction(e ->  {
+
+                    DashFuncionarioRequestDTO dto = getTableView()
+                        .getItems().get(getIndex());
+
+                    DashboardFuncionarioBoundary telaFunc = new DashboardFuncionarioBoundary(stage, dto.getId());
+
+                    Scene funcScene = new Scene(telaFunc.getRoot(), 900, 600);
+
+                    stage.setScene(funcScene);
+
+
+
+                });
 
             }
 
@@ -222,14 +239,38 @@ public class DashboardChefeBoundary {
             colEmail,
             colTelefone,
             colEditar,
-            colExcluir
+            colExcluir,
+            colVer
         );
 
         VBox.setVgrow(tabela, Priority.ALWAYS);
 
+        btnAdcionar.setStyle(
+            "-fx-background-color: #2e7d32;" +
+            "-fx-text-fill: white;" +
+            "-fx-font-weight: bold;" +
+            "-fx-cursor: hand;"
+        );
+
+        btnAdcionar.setOnAction(e -> {
+
+            CadastroBoundary telaCadastro = new CadastroBoundary(stage);
+
+            Scene cadastroScene = new Scene(telaCadastro.getRoot(), 900, 600);
+
+            stage.setScene(cadastroScene);
+
+        });
+
+        HBox footer = new HBox();
+
+        footer.setAlignment(Pos.CENTER_RIGHT);
+
+        footer.getChildren().add(btnAdcionar);
+
         VBox card = new VBox(20);
 
-        card.getChildren().addAll(lblTitulo, tabela);
+        card.getChildren().addAll(lblTitulo, tabela, footer);
 
         card.setPadding(new Insets(25));
 

@@ -17,7 +17,7 @@ public class FuncionarioLoginDAO {
 
     public LoginRequestDTO validarLogin(LoginRequestDTO dto){
 
-        String sql = "SELECT email, senha, tipo FROM funcionario WHERE email = ? AND senha = ?";
+        String sql = "SELECT id, email, senha, tipo FROM funcionario WHERE email = ? AND senha = ?";
 
         try{   
 
@@ -32,6 +32,7 @@ public class FuncionarioLoginDAO {
             if(rs.next()){
 
                 dto.setTipo(rs.getString("tipo"));
+                dto.setId(rs.getLong("id"));
 
             }
 
