@@ -14,6 +14,7 @@ public class DashFuncionarioControl {
     
     private Connection con;
     private DashFuncionarioDAO funcDao;
+    
 
     public DashFuncionarioControl(){
 

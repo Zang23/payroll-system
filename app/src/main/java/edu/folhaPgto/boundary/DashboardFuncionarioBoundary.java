@@ -44,8 +44,9 @@ public class DashboardFuncionarioBoundary {
                 Label lblTitulo = new Label("Folhas de Pagamento");
 
                 lblTitulo.setStyle(
-                                "-fx-font-size: 26px;" +
-                                                "-fx-font-weight: bold;");
+                        "-fx-font-size: 26px;" +
+                        "-fx-font-weight: bold;"
+                );
 
                 TableView<FolhaPagamento> tabela = new TableView<>();
 
@@ -120,12 +121,12 @@ public class DashboardFuncionarioBoundary {
                         {
 
                                 btnVer.setStyle(
-                                                "-fx-background-color: #1976d2;" +
-                                                                "-fx-text-fill: white;" +
-                                                                "-fx-cursor: hand;" +
-                                                                "-fx-font-weight: bold;");
-
-                              //funcao ver
+                                        "-fx-background-color: #1976d2;" +
+                                        "-fx-text-fill: white;" +
+                                        "-fx-cursor: hand;" +
+                                        "-fx-font-weight: bold;"
+                                );
+                                        
 
                         }
 
@@ -159,10 +160,11 @@ public class DashboardFuncionarioBoundary {
                         {
 
                                 btnExcluir.setStyle(
-                                                "-fx-background-color: #d32f2f;" +
-                                                                "-fx-text-fill: white;" +
-                                                                "-fx-cursor: hand;" +
-                                                                "-fx-font-weight: bold;");
+                                        "-fx-background-color: #d32f2f;" +
+                                        "-fx-text-fill: white;" +
+                                        "-fx-cursor: hand;" +
+                                        "-fx-font-weight: bold;"
+                                );
 
                                //funcao excluir
 
@@ -190,12 +192,13 @@ public class DashboardFuncionarioBoundary {
                 });
 
                 tabela.getColumns().addAll(
-                                colId,
-                                colData,
-                                colValorTotal,
-                                colEditar,
-                                colVer,
-                                colExcluir);
+                        colId,
+                        colData,
+                        colValorTotal,
+                        colEditar,
+                        colVer,
+                        colExcluir
+                );
 
                 VBox.setVgrow(tabela, Priority.ALWAYS);
 
@@ -208,7 +211,9 @@ public class DashboardFuncionarioBoundary {
 
                 btnAdcionar.setOnAction(e -> {
 
-                        //funcao para adicionar folha
+                        NovaFolhaPagamentoBoundary telaNovaFolha = new NovaFolhaPagamentoBoundary(stage, dtoId);
+                        Scene nFolhaScene = new Scene(telaNovaFolha.getRoot(), 900, 600);
+                        stage.setScene(nFolhaScene);
 
                 });
 

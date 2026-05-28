@@ -202,7 +202,8 @@ public class DashboardChefeBoundary {
                 btnVer.setOnAction(e ->  {
 
                     DashFuncionarioRequestDTO dto = getTableView()
-                        .getItems().get(getIndex());
+                        .getItems()
+                        .get(getIndex());
 
                     DashboardFuncionarioBoundary telaFunc = new DashboardFuncionarioBoundary(stage, dto.getId());
 
