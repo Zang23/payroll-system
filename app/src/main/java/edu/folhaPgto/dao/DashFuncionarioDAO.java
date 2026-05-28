@@ -20,7 +20,7 @@ public class DashFuncionarioDAO {
 
     public List<FolhaPagamento> carregarTabela(Long dtoId){
         
-        String sql = "SELECT id, total_dias_trabalhados, valor_total, data_inicial, data_final FROM folha_pagamento WHERE funcionario_id = ? ";
+        String sql = "SELECT id, valor_hora, total_dias_trabalhados, valor_total, data_inicial, data_final FROM folha_pagamento WHERE funcionario_id = ?";
         
         try {
         

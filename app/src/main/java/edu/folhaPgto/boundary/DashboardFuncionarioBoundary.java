@@ -60,10 +60,9 @@ public class DashboardFuncionarioBoundary {
                         new PropertyValueFactory<>("id")
                 );
 
-                TableColumn<FolhaPagamento, String> colData = new TableColumn<>("Data Pagamento");
-
-                colData.setCellValueFactory(
-                        new PropertyValueFactory<>("dataPagamento")
+                TableColumn<FolhaPagamento, String> colData = new TableColumn<>("Data Final");
+                        colData.setCellValueFactory(
+                        new PropertyValueFactory<>("dataFinal")
                 );
 
                 TableColumn<FolhaPagamento, Double> colValorTotal = new TableColumn<>("Valor Folha");

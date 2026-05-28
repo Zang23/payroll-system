@@ -17,16 +17,20 @@ CREATE TABLE funcionario (
 );
 
 CREATE TABLE folha_pagamento (
+
     id INT PRIMARY KEY AUTO_INCREMENT,
 
     funcionario_id INT NOT NULL,
 
-    data_pagamento DATE NOT NULL,
+    valor_hora DOUBLE NOT NULL,
 
-    valor_total DECIMAL(10,2) NOT NULL,
+    total_dias_trabalhados INT NOT NULL,
 
-    CONSTRAINT fk_folha_funcionario
-        FOREIGN KEY (funcionario_id)
-        REFERENCES funcionario(id)
+    data_inicial DATE NOT NULL,
+
+    data_final DATE NOT NULL,
+
+    valor_total DOUBLE NOT NULL
+
 );
 
