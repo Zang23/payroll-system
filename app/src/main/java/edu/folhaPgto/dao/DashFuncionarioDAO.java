@@ -20,7 +20,10 @@ public class DashFuncionarioDAO {
 
     public List<FolhaPagamento> carregarTabela(Long dtoId){
         
-        String sql = "SELECT id, valor_hora, total_dias_trabalhados, valor_total, data_inicial, data_final FROM folha_pagamento WHERE funcionario_id = ?";
+
+        lista.clear();
+
+        String sql = "SELECT id, funcionario_id, valor_hora, total_dias_trabalhados, valor_total, data_inicial, data_final FROM folha_pagamento WHERE funcionario_id = ?";
         
         try {
         
@@ -36,6 +39,8 @@ public class DashFuncionarioDAO {
                 FolhaPagamento folha = new FolhaPagamento();
 
                 folha.setId(rs.getLong("id"));
+
+                folha.setFuncionarioId(rs.getLong("funcionario_id"));
 
                 folha.setValorHora(rs.getDouble("valor_hora"));
 
@@ -67,6 +72,30 @@ public class DashFuncionarioDAO {
         }
 
         return lista;
+    }
+
+    public void deletar(FolhaPagamento folha, Long dtoId){
+
+        String sql = "DELETE FROM folha_pagamento WHERE id = ?";
+
+        try {
+            
+            PreparedStatement stm = con.prepareStatement(sql);
+
+            stm.setLong(1, folha.getId());
+
+            stm.executeUpdate();
+            carregarTabela(dtoId);
+
+            stm.close();
+
+            return;
+
+
+        } catch (Exception e) {
+            System.out.println("Erro ao deletar folha de pagamento: " + e.getMessage());
+        }
+
     }
 
 }

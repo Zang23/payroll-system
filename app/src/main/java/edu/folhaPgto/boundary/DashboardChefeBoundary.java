@@ -27,7 +27,7 @@ public class DashboardChefeBoundary {
     private DashChefeControl chefeCtrl = new DashChefeControl();
 
     private Button btnAdcionar = new Button("Adicionar Funcionario");
-
+    private Button btnConsultarFeriados = new Button("Consultar Feriados");
 
     private ObservableList<DashFuncionarioRequestDTO> funcionarios = FXCollections.observableArrayList(chefeCtrl.carregarTabela());
 
@@ -233,7 +233,7 @@ public class DashboardChefeBoundary {
 
         });
 
-        // ================= ADICIONA COLUNAS =================
+        
         tabela.getColumns().addAll(
             colId,
             colNome,
@@ -263,11 +263,30 @@ public class DashboardChefeBoundary {
 
         });
 
-        HBox footer = new HBox();
+        btnConsultarFeriados.setStyle(
+            "-fx-background-color: #f57c00;" +
+            "-fx-text-fill: white;" +
+            "-fx-font-weight: bold;" +
+            "-fx-cursor: hand;"
+        );
+
+        btnConsultarFeriados.setOnAction(e -> {
+
+            DashboardFeriadoBoundary telaFeriado = new DashboardFeriadoBoundary(stage);
+
+            Scene feriadoScene = new Scene(telaFeriado.getRoot(), 900, 600);
+
+            stage.setScene(feriadoScene);
+
+        });
+
+
+
+        HBox footer = new HBox(10);
 
         footer.setAlignment(Pos.CENTER_RIGHT);
 
-        footer.getChildren().add(btnAdcionar);
+        footer.getChildren().addAll(btnAdcionar, btnConsultarFeriados);
 
         VBox card = new VBox(20);
 

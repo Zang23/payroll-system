@@ -11,12 +11,11 @@ public class DiaTrabalhado {
     private LocalDate dataServico;
     private LocalTime horaInicio;
     private LocalTime horaFim;
-    private boolean feriado;
     private boolean viagem;
     private double valorRecebido;
 
     public DiaTrabalhado(){
-
+        super();
     }
 
     public DiaTrabalhado(Long id, Long folhaPagamentoId, String nomeProjeto, LocalDate dataServico, LocalTime horaInicio, LocalTime horaFim, boolean feriado, boolean viagem, double valorRecebido){
@@ -27,7 +26,6 @@ public class DiaTrabalhado {
         this.dataServico = dataServico;
         this.horaInicio = horaInicio;
         this.horaFim = horaFim;
-        this.feriado = feriado;
         this.viagem = viagem;
         this.valorRecebido = valorRecebido;
 
@@ -78,14 +76,6 @@ public class DiaTrabalhado {
 
     public void setHoraFim(LocalTime horaFim) {
         this.horaFim = horaFim;
-    }
-
-    public void setFeriado(boolean feriado) {
-        this.feriado = feriado;
-    }
-    
-    public boolean isFeriado() {
-        return feriado;
     }
 
     public void setViagem(boolean viagem) {

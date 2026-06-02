@@ -5,18 +5,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 import edu.folhaPgto.dao.ConnectionFactory;
-import edu.folhaPgto.dao.DashChefeDAO;
 import edu.folhaPgto.dao.DashFuncionarioDAO;
-import edu.folhaPgto.dto.request.DashFuncionarioRequestDTO;
-import edu.folhaPgto.entity.FolhaPagamento;
+import edu.folhaPgto.dao.VisualizarFolhaDAO;
+import edu.folhaPgto.entity.DiaTrabalhado;
 
-public class DashFuncionarioControl {
+public class VisualizarFolhaControl {
     
     private Connection con;
-    private DashFuncionarioDAO funcDao;
-    
 
-    public DashFuncionarioControl(){
+    private VisualizarFolhaDAO visuDAO;
+
+    public VisualizarFolhaControl(){
 
          try{
             
@@ -24,7 +23,7 @@ public class DashFuncionarioControl {
         
             con = ConnectionFactory.getConnection();
 
-            funcDao = new DashFuncionarioDAO(con);
+            visuDAO = new VisualizarFolhaDAO(con);
 
             System.out.println("Conexao foi feita com sucesso");
         }catch(ClassNotFoundException e){
@@ -40,16 +39,9 @@ public class DashFuncionarioControl {
 
     }
 
-    public List<FolhaPagamento> carregarTabela(Long dtoId){
+    public List<DiaTrabalhado> buscarDiasFolha(Long id){
 
-        return funcDao.carregarTabela(dtoId);
-
-    }
-
-    public void deletarFolha(FolhaPagamento folha, Long dtoId){
-        
-        funcDao.deletar(folha, dtoId);
-        return;
+        return visuDAO.carregarDias(id);
     }
 
 }

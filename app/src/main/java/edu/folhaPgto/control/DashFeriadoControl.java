@@ -6,25 +6,22 @@ import java.util.List;
 
 import edu.folhaPgto.dao.ConnectionFactory;
 import edu.folhaPgto.dao.DashChefeDAO;
-import edu.folhaPgto.dao.DashFuncionarioDAO;
-import edu.folhaPgto.dto.request.DashFuncionarioRequestDTO;
-import edu.folhaPgto.entity.FolhaPagamento;
+import edu.folhaPgto.dao.DashFeriadoDAO;
+import edu.folhaPgto.entity.Feriado;
 
-public class DashFuncionarioControl {
+public class DashFeriadoControl {
     
     private Connection con;
-    private DashFuncionarioDAO funcDao;
-    
+    private DashFeriadoDAO feriadoDAO;
 
-    public DashFuncionarioControl(){
-
+    public DashFeriadoControl(){
          try{
             
             Class.forName("org.mariadb.jdbc.Driver");
         
             con = ConnectionFactory.getConnection();
 
-            funcDao = new DashFuncionarioDAO(con);
+            feriadoDAO = new DashFeriadoDAO(con);
 
             System.out.println("Conexao foi feita com sucesso");
         }catch(ClassNotFoundException e){
@@ -37,19 +34,19 @@ public class DashFuncionarioControl {
             System.out.println("Erro ao conectar com banco de dados");
             e.printStackTrace();
         }
-
     }
 
-    public List<FolhaPagamento> carregarTabela(Long dtoId){
-
-        return funcDao.carregarTabela(dtoId);
-
+    public List<Feriado> carregarTabela(){
+        return feriadoDAO.carregar();
     }
 
-    public void deletarFolha(FolhaPagamento folha, Long dtoId){
+    public void deletarFeriado(Feriado f){
+
+        System.out.println("Feriado: " + f.getDescricao() + ". Deletado com sucesso!");
         
-        funcDao.deletar(folha, dtoId);
-        return;
+        feriadoDAO.deletar(f);
+        return; 
+
     }
 
 }

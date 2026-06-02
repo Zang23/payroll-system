@@ -30,7 +30,46 @@ CREATE TABLE folha_pagamento (
 
     data_final DATE NOT NULL,
 
-    valor_total DOUBLE NOT NULL
+    valor_total DOUBLE NOT NULL DEFAULT 0,
+
+    CONSTRAINT fk_folha_funcionario
+        FOREIGN KEY (funcionario_id)
+        REFERENCES funcionario(id)
+        ON DELETE CASCADE
 
 );
 
+CREATE TABLE dia_trabalhado (
+
+    id INT PRIMARY KEY AUTO_INCREMENT,
+
+    folha_pagamento_id BIGINT NOT NULL,
+
+    nome_projeto VARCHAR(100),
+
+    data_servico DATE NOT NULL,
+
+    hora_inicio TIME NOT NULL,
+
+    hora_fim TIME NOT NULL,
+
+    viagem BOOLEAN DEFAULT FALSE,
+
+    valor_calculado DECIMAL(10,2),
+
+    CONSTRAINT fk_dia_folha
+        FOREIGN KEY (folha_pagamento_id)
+        REFERENCES folha_pagamento(id)
+        ON DELETE CASCADE
+
+);
+
+CREATE TABLE feriado (
+
+    id INT PRIMARY KEY AUTO_INCREMENT,
+
+    data_feriado DATE NOT NULL UNIQUE,
+
+    descricao VARCHAR(100)
+
+);

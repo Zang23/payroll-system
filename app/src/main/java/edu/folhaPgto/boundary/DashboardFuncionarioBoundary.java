@@ -1,5 +1,7 @@
 package edu.folhaPgto.boundary;
 
+import java.time.format.DateTimeFormatter;
+
 import edu.folhaPgto.control.DashFuncionarioControl;
 import edu.folhaPgto.dto.request.DashFuncionarioRequestDTO;
 import edu.folhaPgto.entity.FolhaPagamento;
@@ -60,56 +62,39 @@ public class DashboardFuncionarioBoundary {
                         new PropertyValueFactory<>("id")
                 );
 
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            
+
                 TableColumn<FolhaPagamento, String> colData = new TableColumn<>("Data Final");
-                        colData.setCellValueFactory(
-                        new PropertyValueFactory<>("dataFinal")
+                        colData.setCellValueFactory(item ->
+                        new ReadOnlyStringWrapper(
+                                item.getValue()
+                                .getDataFinal()
+                                .format(formatter)
+                        )
                 );
 
                 TableColumn<FolhaPagamento, Double> colValorTotal = new TableColumn<>("Valor Folha");
 
                 colValorTotal.setCellValueFactory(
-                        new PropertyValueFactory<>("valorTotal")
+                new PropertyValueFactory<>("valorTotal")
                 );
 
-                TableColumn<FolhaPagamento, Void> colEditar = new TableColumn<>("Editar");
-
-                colEditar.setCellFactory(param -> new TableCell<>() {
-
-                        private final Button btnEditar = new Button("Editar");
-
-                        {
-
-                                btnEditar.setStyle(
-                                        "-fx-background-color: #1976d2;" +
-                                        "-fx-text-fill: white;" +
-                                        "-fx-cursor: hand;" +
-                                        "-fx-font-weight: bold;"
-                                );
-
-                               // funcao editar
-
-                        }
+                colValorTotal.setCellFactory(column -> new TableCell<>() {
 
                         @Override
-                        protected void updateItem(
-                                        Void item,
-                                        boolean empty) {
+                        protected void updateItem(Double valor, boolean empty) {
 
-                                super.updateItem(item, empty);
+                                super.updateItem(valor, empty);
 
-                                if (empty) {
-
-                                        setGraphic(null);
-
+                                if (empty || valor == null) {
+                                setText(null);
                                 } else {
-
-                                        setGraphic(btnEditar);
-
+                                setText(String.format("R$ %.2f", valor));
                                 }
-
-                        }
-
+                        }   
                 });
+
 
                 TableColumn<FolhaPagamento, Void> colVer = new TableColumn<>("Ver");
 
@@ -125,7 +110,21 @@ public class DashboardFuncionarioBoundary {
                                         "-fx-cursor: hand;" +
                                         "-fx-font-weight: bold;"
                                 );
-                                        
+
+                                btnVer.setOnAction(e -> {
+
+                                        FolhaPagamento folha = getTableView()
+                                                .getItems()
+                                                .get(getIndex());
+
+                                        VisualizarFolhaBoundary telaVerFolha = new VisualizarFolhaBoundary(stage, folha);
+
+                                        Scene verScene = new Scene(telaVerFolha.getRoot(), 900, 600);
+
+                                        stage.setScene(verScene);
+
+                                });
+
 
                         }
 
@@ -143,7 +142,7 @@ public class DashboardFuncionarioBoundary {
                                 } else {
 
                                         setGraphic(btnVer);
-
+                                        setStyle("-fx-alignment: CENTER;");
                                 }
 
                         }
@@ -165,7 +164,16 @@ public class DashboardFuncionarioBoundary {
                                         "-fx-font-weight: bold;"
                                 );
 
-                               //funcao excluir
+                                btnExcluir.setOnAction(e -> {
+                                        FolhaPagamento folha = getTableView()
+                                        .getItems()
+                                        .get(getIndex());
+
+                                        funcCtrl.deletarFolha(folha, dtoId);
+                                        getTableView().getItems().remove(folha);
+                                });
+
+                                
 
                         }
 
@@ -177,13 +185,10 @@ public class DashboardFuncionarioBoundary {
                                 super.updateItem(item, empty);
 
                                 if (empty) {
-
                                         setGraphic(null);
-
                                 } else {
-
                                         setGraphic(btnExcluir);
-
+                                        setStyle("-fx-alignment: CENTER;");
                                 }
 
                         }
@@ -194,7 +199,6 @@ public class DashboardFuncionarioBoundary {
                         colId,
                         colData,
                         colValorTotal,
-                        colEditar,
                         colVer,
                         colExcluir
                 );

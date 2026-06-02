@@ -87,6 +87,7 @@ public class NovaFolhaPagamentoControl {
         }
 
         if(folhaDAO.salvarFolha(f)){
+            System.out.println("ID gerado = " + f.getId());
             System.out.println("Sucesso ao cadastrar nova folha de pagamento");
             return f;
         }

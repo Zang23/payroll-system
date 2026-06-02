@@ -29,7 +29,6 @@ public class FormularioServicoBoundary {
     private DatePicker dpDataServico = new DatePicker();
     private ComboBox<String> cbHoraInicio = new ComboBox<>();
     private ComboBox<String> cbHoraFim = new ComboBox<>();
-    private CheckBox cbFeriado = new CheckBox("Feriado");
     private CheckBox cbViagem = new CheckBox("Viagem");
 
     private Button btnContinuar = new Button("Continuar: ");
@@ -106,7 +105,6 @@ public class FormularioServicoBoundary {
         boxChecks.setAlignment(Pos.CENTER_LEFT);
 
         boxChecks.getChildren().addAll(
-            cbFeriado,
             cbViagem
         );
 
@@ -131,11 +129,16 @@ public class FormularioServicoBoundary {
 
         btnContinuar.setOnAction(e -> {
 
-            DiaTrabalhado diaValido = new DiaTrabalhado();
+            System.out.println("Folha ID = " + folha.getId());
+
+            System.out.println("Folha recebida: " + folha);
+            System.out.println("Folha ID: " + folha.getId());
+
+            DiaTrabalhado diaValido = formCtrl.toEntity(folha.getId());
 
             if(formCtrl.validaDia(diaValido)){
 
-                formCtrl.salvaDia();
+                formCtrl.salvaDia(folha.getId());
 
 
                 if(diasTrabalhados < folha.getTotalDiasTrabalhados()){
@@ -165,7 +168,6 @@ public class FormularioServicoBoundary {
         Bindings.bindBidirectional(dpDataServico.valueProperty(), formCtrl.dataServicoProperty());
         Bindings.bindBidirectional(cbHoraInicio.valueProperty(), formCtrl.horaInicioProperty());
         Bindings.bindBidirectional(cbHoraFim.valueProperty(), formCtrl.horaFimProperty());
-        Bindings.bindBidirectional(cbFeriado.selectedProperty(), formCtrl.feriadoProperty());
         Bindings.bindBidirectional(cbViagem.selectedProperty(), formCtrl.viagemProperty());
 
         card.getChildren().addAll(

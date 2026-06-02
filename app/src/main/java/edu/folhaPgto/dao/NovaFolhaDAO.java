@@ -21,7 +21,7 @@ public class NovaFolhaDAO {
 
         try{
 
-            PreparedStatement stm = con.prepareStatement(sql);
+            PreparedStatement stm = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
             stm.setLong(1, folha.getFuncionarioId());
             stm.setDouble(2, folha.getValorHora());
@@ -33,6 +33,14 @@ public class NovaFolhaDAO {
             System.out.println(folha.toString());
 
             stm.executeUpdate();
+
+            var rs = stm.getGeneratedKeys();
+
+            if(rs.next()){
+                folha.setId(rs.getLong(1));
+            }
+
+            rs.close();
             return true;
 
         }catch(SQLException e){
