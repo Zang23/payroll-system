@@ -44,4 +44,8 @@ public class VisualizarFolhaControl {
         return visuDAO.carregarDias(id);
     }
 
+    public String getTipoFuncionario(Long idFuncionario){
+        return visuDAO.getTipoFuncionario(idFuncionario);
+    }
+
 }

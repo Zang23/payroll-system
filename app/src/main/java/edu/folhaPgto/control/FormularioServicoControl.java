@@ -208,6 +208,12 @@ public class FormularioServicoControl {
         return true;
     }
 
+    public String getTipoFuncionario(Long idFuncionario){
+
+        return formDAO.getTipoFuncionario(idFuncionario);
+
+    }
+
 
 
 

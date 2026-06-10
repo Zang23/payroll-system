@@ -11,7 +11,7 @@ public class Main extends Application {
 
         LoginBoundary telaLogin = new LoginBoundary(stage);
 
-        Scene scene = new Scene(telaLogin.getRoot(), 700, 500);
+        Scene scene = new Scene(telaLogin.getRoot(), 900, 600);
 
         stage.setScene(scene);
         stage.setTitle("Sistema Folha de Pagamento");

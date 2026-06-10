@@ -3,10 +3,7 @@ package edu.folhaPgto.boundary;
 import java.time.format.DateTimeFormatter;
 
 import edu.folhaPgto.control.DashFuncionarioControl;
-import edu.folhaPgto.dto.request.DashFuncionarioRequestDTO;
 import edu.folhaPgto.entity.FolhaPagamento;
-import javafx.beans.property.ReadOnlyDoubleWrapper;
-import javafx.beans.property.ReadOnlyLongWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,9 +30,16 @@ public class DashboardFuncionarioBoundary {
 
         private Button btnAdcionar = new Button("Adicionar Folha");
         private Button btnVoltar = new Button("Voltar");
+     
 
+        public DashboardFuncionarioBoundary(Stage stage, Long dtoId, String tipo) {
 
-        public DashboardFuncionarioBoundary(Stage stage, Long dtoId) {
+                boolean isChefe = tipo.equalsIgnoreCase("chefe");
+
+                if (!isChefe) {
+                        btnAdcionar.setVisible(false);
+                        btnAdcionar.setManaged(false);
+                }
 
                 ObservableList<FolhaPagamento> folhas = FXCollections.observableArrayList(funcCtrl.carregarTabela(dtoId));
 
@@ -155,6 +159,8 @@ public class DashboardFuncionarioBoundary {
 
                         private final Button btnExcluir = new Button("Excluir");
 
+
+
                         {
 
                                 btnExcluir.setStyle(
@@ -195,13 +201,28 @@ public class DashboardFuncionarioBoundary {
 
                 });
 
-                tabela.getColumns().addAll(
-                        colId,
-                        colData,
-                        colValorTotal,
-                        colVer,
-                        colExcluir
-                );
+                
+                if(isChefe){
+                        tabela.getColumns().addAll(
+                                colId,
+                                colData,
+                                colValorTotal,
+                                colVer,
+                                colExcluir
+                        );
+                }else{
+                        tabela.getColumns().addAll(
+                                colId,
+                                colData,
+                                colValorTotal,
+                                colVer
+                        );
+
+                }
+
+                
+
+                
 
                 VBox.setVgrow(tabela, Priority.ALWAYS);
 
@@ -228,12 +249,23 @@ public class DashboardFuncionarioBoundary {
                 );
 
                 btnVoltar.setOnAction(e ->{
-                        
-                        DashboardChefeBoundary telaChefe = new DashboardChefeBoundary(stage);
 
-                        Scene chefeScene = new Scene(telaChefe.getRoot(), 900, 600);
+                        if (isChefe) {
 
-                        stage.setScene(chefeScene);
+                                DashboardChefeBoundary telaChefe = new DashboardChefeBoundary(stage);
+
+                                Scene chefeScene = new Scene(telaChefe.getRoot(), 900, 600);
+
+                                stage.setScene(chefeScene);
+
+                        } else {
+
+                                LoginBoundary telaLogin = new LoginBoundary(stage);
+
+                                Scene loginScene = new Scene(telaLogin.getRoot(), 900, 600);
+
+                                stage.setScene(loginScene);
+                        }
 
                 });
 

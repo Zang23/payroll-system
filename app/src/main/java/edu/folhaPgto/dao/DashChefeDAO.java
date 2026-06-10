@@ -20,7 +20,7 @@ public class DashChefeDAO {
 
     public List<DashFuncionarioRequestDTO> carregar(){
 
-        String sql = "SELECT id, nome, email, telefone FROM funcionario WHERE tipo = 'funcionario'";
+        String sql = "SELECT id, nome, email, telefone, tipo FROM funcionario WHERE tipo = 'funcionario'";
 
         try {
             
@@ -33,12 +33,14 @@ public class DashChefeDAO {
                 String nome = rs.getString("nome");
                 String email = rs.getString("email");
                 String telefone = rs.getString("telefone");
+                String tipo = rs.getString("tipo");
 
                 DashFuncionarioRequestDTO dto = new DashFuncionarioRequestDTO(
                     id, 
                     nome, 
                     email, 
-                    telefone
+                    telefone,
+                    tipo
                 );
 
                 lista.add(dto);

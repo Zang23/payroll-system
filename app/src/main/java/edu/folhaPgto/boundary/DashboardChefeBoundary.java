@@ -28,6 +28,7 @@ public class DashboardChefeBoundary {
 
     private Button btnAdcionar = new Button("Adicionar Funcionario");
     private Button btnConsultarFeriados = new Button("Consultar Feriados");
+    private Button btnVoltar = new Button("Voltar");
 
     private ObservableList<DashFuncionarioRequestDTO> funcionarios = FXCollections.observableArrayList(chefeCtrl.carregarTabela());
 
@@ -205,7 +206,8 @@ public class DashboardChefeBoundary {
                         .getItems()
                         .get(getIndex());
 
-                    DashboardFuncionarioBoundary telaFunc = new DashboardFuncionarioBoundary(stage, dto.getId());
+                    
+                    DashboardFuncionarioBoundary telaFunc = new DashboardFuncionarioBoundary(stage, dto.getId(), "chefe");
 
                     Scene funcScene = new Scene(telaFunc.getRoot(), 900, 600);
 
@@ -280,13 +282,28 @@ public class DashboardChefeBoundary {
 
         });
 
+        btnVoltar.setStyle(
+            "-fx-background-color: #d32f2f;" +
+            "-fx-text-fill: white;" +
+            "-fx-font-weight: bold;" +
+            "-fx-cursor: hand;"
+        );
+
+        btnVoltar.setOnAction(e -> {
+            LoginBoundary telaLogin = new LoginBoundary(stage);
+            
+            Scene loginScene = new Scene(telaLogin.getRoot(), 900, 600);
+
+            stage.setScene(loginScene);
+        });
+
 
 
         HBox footer = new HBox(10);
 
         footer.setAlignment(Pos.CENTER_RIGHT);
 
-        footer.getChildren().addAll(btnAdcionar, btnConsultarFeriados);
+        footer.getChildren().addAll(btnAdcionar, btnConsultarFeriados, btnVoltar);
 
         VBox card = new VBox(20);
 

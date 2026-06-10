@@ -134,4 +134,34 @@ public class FormularioServiceDAO {
         }
     }
 
+    public String getTipoFuncionario(Long idFuncionario){
+
+        String sql = """
+            SELECT tipo 
+            FROM funcionario
+            WHERE id = ?       
+        """;
+
+        String tipo = "";
+
+        try(PreparedStatement stm = con.prepareStatement(sql)){
+
+            stm.setLong(1, idFuncionario);
+
+            ResultSet rs = stm.executeQuery();
+
+            tipo = rs.getString("tipo");
+
+            return tipo;
+        }catch(Exception e){
+            System.out.println("Erro ao pegar o tipo do funcionario: " + e.getMessage());
+            
+        }
+
+        return tipo;
+        
+
+    }
+
+
 }

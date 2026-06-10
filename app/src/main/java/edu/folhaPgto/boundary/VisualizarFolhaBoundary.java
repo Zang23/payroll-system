@@ -169,7 +169,9 @@ public class VisualizarFolhaBoundary {
             
             System.out.println("Funcionario ID = " + folha.getFuncionarioId());
 
-            DashboardFuncionarioBoundary tela = new DashboardFuncionarioBoundary(stage, folha.getFuncionarioId());
+            String tipo = control.getTipoFuncionario(folha.getFuncionarioId());
+
+            DashboardFuncionarioBoundary tela = new DashboardFuncionarioBoundary(stage, folha.getFuncionarioId(), tipo);
 
             Scene scene = new Scene(tela.getRoot(),900,600);
 

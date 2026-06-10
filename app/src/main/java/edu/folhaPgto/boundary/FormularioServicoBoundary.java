@@ -149,7 +149,9 @@ public class FormularioServicoBoundary {
                     stage.setScene(servicoScene);
                 }else if(diasTrabalhados == folha.getTotalDiasTrabalhados()){
 
-                    DashboardFuncionarioBoundary telaFuncionario = new DashboardFuncionarioBoundary(stage, folha.getFuncionarioId());
+                    String tipo = formCtrl.getTipoFuncionario(folha.getFuncionarioId());
+
+                    DashboardFuncionarioBoundary telaFuncionario = new DashboardFuncionarioBoundary(stage, folha.getFuncionarioId(), tipo);
 
                     Scene funcionarioScene = new Scene(telaFuncionario.getRoot(), 900, 600);
 
