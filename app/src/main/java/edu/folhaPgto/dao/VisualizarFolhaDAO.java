@@ -64,7 +64,6 @@ public class VisualizarFolhaDAO {
             WHERE id = ?       
         """;
 
-        String tipo = "";
 
         try(PreparedStatement stm = con.prepareStatement(sql)){
 
@@ -72,15 +71,17 @@ public class VisualizarFolhaDAO {
 
             ResultSet rs = stm.executeQuery();
 
-            tipo = rs.getString("tipo");
+            if(rs.next()){
+                return rs.getString("tipo");
+            }
 
-            return tipo;
+
         }catch(Exception e){
             System.out.println("Erro ao pegar o tipo do funcionario: " + e.getMessage());
             
         }
 
-        return tipo;
+        return "";
 
     }
 

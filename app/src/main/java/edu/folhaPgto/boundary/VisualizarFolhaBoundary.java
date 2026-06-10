@@ -30,7 +30,7 @@ public class VisualizarFolhaBoundary {
 
     private Button btnVoltar = new Button("Voltar");
 
-    public VisualizarFolhaBoundary(Stage stage, FolhaPagamento folha) {
+    public VisualizarFolhaBoundary(Stage stage, FolhaPagamento folha, Long usuarioLogadoId, String tipoUsuarioLogado) {
 
         root.setStyle(
             "-fx-background-color: #f5f5f5;"
@@ -169,9 +169,8 @@ public class VisualizarFolhaBoundary {
             
             System.out.println("Funcionario ID = " + folha.getFuncionarioId());
 
-            String tipo = control.getTipoFuncionario(folha.getFuncionarioId());
 
-            DashboardFuncionarioBoundary tela = new DashboardFuncionarioBoundary(stage, folha.getFuncionarioId(), tipo);
+            DashboardFuncionarioBoundary tela = new DashboardFuncionarioBoundary(stage, usuarioLogadoId, tipoUsuarioLogado);
 
             Scene scene = new Scene(tela.getRoot(),900,600);
 

@@ -121,7 +121,7 @@ public class DashboardFuncionarioBoundary {
                                                 .getItems()
                                                 .get(getIndex());
 
-                                        VisualizarFolhaBoundary telaVerFolha = new VisualizarFolhaBoundary(stage, folha);
+                                        VisualizarFolhaBoundary telaVerFolha = new VisualizarFolhaBoundary(stage, folha, dtoId, tipo);
 
                                         Scene verScene = new Scene(telaVerFolha.getRoot(), 900, 600);
 
