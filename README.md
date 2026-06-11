@@ -21,20 +21,8 @@ O objetivo do projeto é fornecer uma aplicação desktop para cadastro e gerenc
 
 ## 🎥 Demonstração
 
-### Vídeo de apresentação
-
-[![Assista ao vídeo](imagem-thumbnail.png)](link-do-video)
-
-Ou:
-
 📹 Vídeo completo:
-https://youtube.com/...
-
----
-
-## 📸 Screenshots
-
-[imagens do sistema]
+https://youtube.com/...](https://youtu.be/SX1A_5rtlqQ)
 
 ---
 
