@@ -43,7 +43,7 @@ CREATE TABLE dia_trabalhado (
 
     id INT PRIMARY KEY AUTO_INCREMENT,
 
-    folha_pagamento_id BIGINT NOT NULL,
+    folha_pagamento_id INT NOT NULL,
 
     nome_projeto VARCHAR(100),
 
