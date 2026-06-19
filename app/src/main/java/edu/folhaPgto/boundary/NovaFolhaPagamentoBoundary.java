@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -25,6 +26,9 @@ public class NovaFolhaPagamentoBoundary {
     private DatePicker dpDataInicial = new DatePicker();
     private DatePicker dpDataFinal = new DatePicker();
     private Button btnContinuar = new Button("Continuar");
+    private CheckBox chkUsaKm = new CheckBox("Utiliza reembolso por KM");
+    private TextField txtValorKm = new TextField();
+    
 
     private VBox root = new VBox();
 
@@ -72,6 +76,17 @@ public class NovaFolhaPagamentoBoundary {
         );
         txtTotalDias.setPrefHeight(40);
 
+        chkUsaKm.setStyle("""
+            -fx-font-size: 14px;
+        """);
+
+        txtValorKm.setPromptText("Valor por KM");
+        txtValorKm.setPrefHeight(40);
+        txtValorKm.setDisable(true);
+
+        txtValorKm.disableProperty().bind(
+            chkUsaKm.selectedProperty().not()
+        );
         
 
         dpDataInicial.setPromptText("Data inicial");
@@ -125,6 +140,8 @@ public class NovaFolhaPagamentoBoundary {
             lblTitulo,
             txtValorHora,
             txtTotalDias,
+            chkUsaKm,
+            txtValorKm,
             dpDataInicial,
             dpDataFinal,
             btnContinuar

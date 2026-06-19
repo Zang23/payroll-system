@@ -147,6 +147,7 @@ public class FormularioServicoBoundary {
                     Scene servicoScene = new Scene(telaServico.getRoot(), 900, 600);
 
                     stage.setScene(servicoScene);
+                    
                 }else if(diasTrabalhados == folha.getTotalDiasTrabalhados()){
 
                     String tipo = formCtrl.getTipoFuncionario(folha.getFuncionarioId());
