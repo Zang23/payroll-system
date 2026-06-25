@@ -7,7 +7,9 @@ import java.time.LocalDate;
 import edu.folhaPgto.dao.ConnectionFactory;
 import edu.folhaPgto.dao.NovaFolhaDAO;
 import edu.folhaPgto.entity.FolhaPagamento;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -18,8 +20,10 @@ public class NovaFolhaPagamentoControl {
 
     private StringProperty valorHora = new SimpleStringProperty("");
     private StringProperty totalDias = new SimpleStringProperty("");
+    private StringProperty valorKm = new SimpleStringProperty("");
     private ObjectProperty<LocalDate> dataInicial = new SimpleObjectProperty<>();
     private ObjectProperty<LocalDate> dataFinal = new SimpleObjectProperty<>();
+    private BooleanProperty usaKm = new SimpleBooleanProperty(false);
 
     private NovaFolhaDAO folhaDAO;
 
@@ -56,6 +60,10 @@ public class NovaFolhaPagamentoControl {
         f.setDataInicial(dataInicial.get());
         f.setDataFinal(dataFinal.get());
 
+        if(usaKm.get()){
+            f.setValorKm(Double.parseDouble(valorKm.get()));
+        }
+
         return f;
 
     }
@@ -86,6 +94,7 @@ public class NovaFolhaPagamentoControl {
             throw new Exception("A data final deve ser depois da inicial");
         }
 
+
         if(folhaDAO.salvarFolha(f)){
             System.out.println("ID gerado = " + f.getId());
             System.out.println("Sucesso ao cadastrar nova folha de pagamento");
@@ -110,6 +119,14 @@ public class NovaFolhaPagamentoControl {
 
     public ObjectProperty<LocalDate> dataFinalProperty(){
         return dataFinal;
+    }
+
+    public StringProperty valorKmProperty(){
+        return valorKm;
+    }
+
+    public BooleanProperty usaKmProperty(){
+        return usaKm;
     }
     
 

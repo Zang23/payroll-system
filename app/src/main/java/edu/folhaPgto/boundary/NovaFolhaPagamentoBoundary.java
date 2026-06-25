@@ -134,17 +134,20 @@ public class NovaFolhaPagamentoBoundary {
         Bindings.bindBidirectional(txtTotalDias.textProperty(), folhaCtrl.totalDiasProperty());
         Bindings.bindBidirectional(dpDataFinal.valueProperty(), folhaCtrl.dataFinalProperty());
         Bindings.bindBidirectional(dpDataInicial.valueProperty(), folhaCtrl.dataInicialProperty());
-
+        Bindings.bindBidirectional(txtValorKm.textProperty(), folhaCtrl.valorKmProperty());
+        Bindings.bindBidirectional(chkUsaKm.selectedProperty(), folhaCtrl.usaKmProperty());
+        
 
         card.getChildren().addAll(
             lblTitulo,
             txtValorHora,
             txtTotalDias,
-            chkUsaKm,
-            txtValorKm,
             dpDataInicial,
             dpDataFinal,
+            chkUsaKm,
+            txtValorKm,
             btnContinuar
+            
         );
 
         root.getChildren().add(card);

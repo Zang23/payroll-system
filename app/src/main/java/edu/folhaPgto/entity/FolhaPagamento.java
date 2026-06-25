@@ -11,6 +11,7 @@ public class FolhaPagamento {
     private LocalDate dataInicial;
     private LocalDate dataFinal;
     private double valorTotal;
+    private double valorKm;
 
     public FolhaPagamento() {
 
@@ -23,7 +24,8 @@ public class FolhaPagamento {
         int totalDiasTrabalhados,
         LocalDate dataInicial,
         LocalDate dataFinal,
-        double valorTotal
+        double valorTotal,
+        double valorKm
     ) {
 
         this.id = id;
@@ -33,7 +35,7 @@ public class FolhaPagamento {
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
         this.valorTotal = valorTotal;
-
+        this.valorKm = valorKm;
     }
 
     public Long getId() {
@@ -90,6 +92,14 @@ public class FolhaPagamento {
 
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    public double getValorKm() {
+        return valorKm;
+    }
+
+    public void setValorKm(double valorKm) {
+        this.valorKm = valorKm;
     }
 
 }
